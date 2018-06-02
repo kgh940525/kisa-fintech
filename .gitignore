@@ -64,8 +64,12 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
+.gradle/4.1/fileHashes/*
+.idea/misc.xml
+.idea/workspace.xml
 
 .idea/misc.xml
 .idea/misc.*
 .idea/modules.xml
 .idea/caches/
+

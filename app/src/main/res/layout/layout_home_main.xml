@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="515dp">
+
+    //제송해여 어케함이거ㅜ
+
+    <Frame
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="227dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:layout_marginTop="276dp"
+        android:text="감귤 뀰맛 맛있다귤"
+        android:textSize="40sp"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:layout_gravity="start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="218dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginRight="78dp"
+        android:layout_marginTop="14dp"
+        android:text="제주 바다 바람을 맞으며 하루하루 달콤해지는 감귤"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:layout_gravity="start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"/>
+    
+    <ImageView
+        android:layout_width="230dp"
+        android:layout_height="5dp"
+        android:background="#4c4c4c"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

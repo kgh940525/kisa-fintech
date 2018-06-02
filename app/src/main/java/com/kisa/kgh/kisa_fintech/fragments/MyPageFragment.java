@@ -21,7 +21,7 @@ public class MyPageFragment extends Fragment {
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // TODO detail acticity
     }

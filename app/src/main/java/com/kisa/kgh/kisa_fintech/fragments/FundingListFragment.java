@@ -1,8 +1,6 @@
 package com.kisa.kgh.kisa_fintech.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,11 +16,7 @@ import com.kisa.kgh.kisa_fintech.network.module.NoteResponseModule;
 
 import java.util.List;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by kgh on 2018. 6. 2..
