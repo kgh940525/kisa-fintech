@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="518dp">
+
+    <Frame
+        android:id="@+id/frame"
+        android:layout_width="315dp"
+        android:layout_height="315dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:layout_width="39dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="287dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="297dp"
+        android:layout_marginRight="297dp"
+        android:background="#ffcd00"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/current_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="291dp"
+        android:text="120% 달성!"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="@id/frame"
+        app:layout_constraintTop_toTopOf="@id/frame"/>
+
+    <TextView
+        android:id="@+id/current_money"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="291dp"
+        android:text="3,249,000원 모금"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toEndOf="@id/current_percent"
+        app:layout_constraintTop_toTopOf="@id/frame"/>
+
+    <TextView
+        android:id="@+id/remain_date"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginTop="291dp"
+        android:text="03일 남음"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toEndOf="@id/current_money"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/frame"/>
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="264dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="51dp"
+        android:text="당근은 영어로 캐럿 캐럿이구요"
+        android:textSize="33sp"
+        android:textColor="#000000"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="264dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="20dp"
+        android:text="인천 연수구에 사는 박성호 씨가 진심을 다해 키운 당근입니다. 제초제, 성장촉진제를 사용하지 않아 몸에 친절한 당근이죠."
+        android:textSize="15sp"
+        android:textColor="#4e4e4e"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
