@@ -66,3 +66,6 @@ fastlane/readme.md
 
 
 .idea/misc.xml
+.idea/misc.*
+.idea/modules.xml
+.idea/caches/
