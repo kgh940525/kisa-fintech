@@ -2,21 +2,29 @@ package com.kisa.kgh.kisa_fintech;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kisa.kgh.kisa_fintech.network.RetrofitManager;
+import com.kisa.kgh.kisa_fintech.network.module.ResponseModule;
+
 import java.util.regex.Pattern;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by SOHYUN on 2018-06-02.
@@ -24,12 +32,16 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
     EditText edtName, edtEmail, edtPassword, edtPasswordConfirm;
     Button btnSignUpDone;
     RadioGroup rgGender;
     RadioButton btnNongbu, btnInvestor;
     ImageView ic_warning1, ic_warning2, ic_warning3, ic_warning4, ic_warning5;
     TextView warning1_text, warning2_text, warning3_text, warning4_text, warning5_text;
+
+    private int type = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = edtName.getText().toString();
-                if((name.length() == 0) || (edtName.getText().toString().length() > 8)) {
+                if ((name.length() == 0) || (edtName.getText().toString().length() > 8)) {
                     ic_warning1.setVisibility(View.VISIBLE);
                     warning1_text.setVisibility(View.VISIBLE);
                     return;
@@ -80,6 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+
         // 사용자구분 검사
         rgGender = findViewById(R.id.rgGender);
         rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -88,10 +101,12 @@ public class SignUpActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.btnNongbu:
                         Toast.makeText(getApplicationContext(), "사업자 선택", Toast.LENGTH_SHORT).show();
+                        type = 0;
                         ic_warning2.setVisibility(View.INVISIBLE);
                         warning2_text.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.btnInvestor:
+                        type = 1;
                         Toast.makeText(getApplicationContext(), "투자자 선택", Toast.LENGTH_SHORT).show();
                         ic_warning2.setVisibility(View.INVISIBLE);
                         warning2_text.setVisibility(View.INVISIBLE);
@@ -110,7 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if((edtEmail.getText().toString().length() == 0) || !Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,6}$", edtEmail.getText().toString())) {
+                if ((edtEmail.getText().toString().length() == 0) || !Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,6}$", edtEmail.getText().toString())) {
                     ic_warning3.setVisibility(View.VISIBLE);
                     warning3_text.setVisibility(View.VISIBLE);
                     return;
@@ -136,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if((edtPassword.getText().toString().length() == 0) || !Pattern.matches("^(?=.*[a-zA-Z])(?=.*[0-9]).{9,14}$", edtPassword.getText().toString())) {
+                if ((edtPassword.getText().toString().length() == 0) || !Pattern.matches("^(?=.*[a-zA-Z])(?=.*[0-9]).{9,14}$", edtPassword.getText().toString())) {
                     ic_warning4.setVisibility(View.VISIBLE);
                     warning4_text.setVisibility(View.VISIBLE);
                     return;
@@ -153,19 +168,19 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
         //비밀번호 일치 검사
         edtPasswordConfirm.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
                 String password = edtPassword.getText().toString();
                 String confirm = edtPasswordConfirm.getText().toString();
 
-                if(password.equals(confirm)) {
+                if (password.equals(confirm)) {
                     ic_warning5.setVisibility(View.INVISIBLE);
                     warning5_text.setVisibility(View.INVISIBLE);
                 } else {
@@ -173,11 +188,11 @@ public class SignUpActivity extends AppCompatActivity {
                     warning5_text.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
 
 
         // 가입하기 버튼
@@ -217,12 +232,43 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
 
-                Intent result = new Intent();
-                result.putExtra("email", edtEmail.getText().toString());
+                ResponseModule module = new ResponseModule(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), edtName.getText().toString().trim(), type);
 
-                setResult(RESULT_OK, result);
-                finish();
+                RetrofitManager.getRetrofitMethod().signUp(module)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<ResponseModule>() {
 
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                mCompositeDisposable.add(d);
+                            }
+
+                            @Override
+                            public void onNext(ResponseModule responseModule) {
+                                String code = responseModule.getCode();
+
+                                if (code.equals("2200")) {
+
+                                    Intent result = new Intent();
+                                    result.putExtra("email", edtEmail.getText().toString());
+
+                                    setResult(RESULT_OK, result);
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "가입 실패", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e("Login Error", e.toString());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
 
             }
         });

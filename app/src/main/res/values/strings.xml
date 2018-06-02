@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">kisa-fintech</string>
 
+    <string name="error_null">값이 없습니다</string>
+    <string name="error_network">네트워크 환경을 확인해주세요</string>
+
     <string name="guide_A">바로 결제되지 않고 결제 예약이 되며,\n목표 금액 달성시, 0000,00,00에 결제 됩니다.\n\n수수료 타입에 따라 목표 금액과 상관없이\n진행되는 경우도 있습니다.</string>
 
     <string name="guide_B">리워드 결제 예약 취소와 변경은\n프로젝트 펀딩 기간 중에만 가능합니다.\n펀딩 취소와 변경은 0000.00.00까지 가능합니다.\n이후로는 취소가 불가합니다.</string>

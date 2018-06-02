@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".funding_list.MyFundingListActivity" />
         <activity android:name=".funding_detail.FundingDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />
@@ -32,15 +31,15 @@
 
         <activity android:name=".funding_list.MyFundingListActivity">
             <intent-filter>
-                <action android:name="android.intent.action.RUN"/>
+                <action android:name="android.intent.action.RUN" />
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".funding_detail.FundingDetailActivity" />
-        <activity android:name=".new_funding.NewFundingActivity" />
-        <activity android:name=".settings.SettingActivity"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".SignUpActivity" />
     </application>
 
