@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +29,19 @@
         <activity android:name=".funding_detail.PaymentGuideActivity" />
         <activity android:name=".funding_detail.SelectRewardActivity" />
         <activity android:name=".funding_detail.FundingPaymentActivity"></activity>
+
+        <activity android:name=".funding_list.MyFundingListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN"/>
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name=".funding_detail.FundingDetailActivity" />
+        <activity android:name=".new_funding.NewFundingActivity" />
+        <activity android:name=".settings.SettingActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>
