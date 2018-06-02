@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kisa.kgh.kisa_fintech">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,9 +19,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".funding_list.MyFundingListActivity" />
-        <activity android:name=".funding_detail.FundingDetailActivity" />
+        <activity android:name=".funding_detail.FundingDetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".new_funding.NewFundingActivity" />
-        <activity android:name=".settings.SettingActivity"></activity>
+        <activity android:name=".settings.SettingActivity" />
+        <activity android:name=".funding_detail.PaymentGuideActivity" />
+        <activity android:name=".funding_detail.SelectRewardActivity" />
+        <activity android:name=".funding_detail.FundingPaymentActivity"></activity>
     </application>
 
 </manifest>
