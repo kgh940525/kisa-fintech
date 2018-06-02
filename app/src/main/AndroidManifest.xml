@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".funding_list.MyFundingListActivity" />
+        <activity android:name=".funding_detail.FundingDetailActivity" />
+        <activity android:name=".new_funding.NewFundingActivity" />
+        <activity android:name=".settings.SettingActivity"></activity>
     </application>
 
 </manifest>
