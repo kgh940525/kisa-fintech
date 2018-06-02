@@ -1,5 +1,7 @@
 package com.kisa.kgh.kisa_fintech.fragments;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 /**
@@ -14,5 +16,12 @@ public class FundingListFragment extends Fragment{
 
     public static FundingListFragment getInstance() {
         return FundingListFragment.SingleTon.instance;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // TODO detail acticity
     }
 }
