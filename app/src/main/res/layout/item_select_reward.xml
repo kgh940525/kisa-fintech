@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_height="160dp"
+    android:background="@color/colorRewardGray"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <CheckBox
+        android:id="@+id/cb_item_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-8dp" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_fund_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cb_item_reward"
+        android:text="10,000원"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cb_item_reward"
+        android:layout_toRightOf="@id/txt_item_reward_fund_money"
+        android:text=" 펀딩 합니다."
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_reward_fund_money" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_original_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_reward_name"
+        android:text="정상판매 예정가 12,000원"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_sale_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_reward_name"
+        android:layout_toRightOf="@id/txt_item_reward_original_cost"
+        android:text=" / 약 00% 할인 혜택"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_reward_original_cost"
+        android:text="배송비 : 5,000원"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txt_item_reward_prediction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_reward_delivery"
+        android:text="리워드 제공 예상일 : 2018년 8월 중순 (11 ~ 20일) 예정" />
+
+    <RelativeLayout
+        android:id="@+id/layout_all_sale"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAllSale">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="매 진"
+            android:textColor="@color/colorWhite"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
