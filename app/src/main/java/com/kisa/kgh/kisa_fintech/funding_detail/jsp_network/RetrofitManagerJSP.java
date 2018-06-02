@@ -1,4 +1,4 @@
-package com.kisa.kgh.kisa_fintech.network;
+package com.kisa.kgh.kisa_fintech.funding_detail.jsp_network;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,21 +22,21 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.kisa.kgh.kisa_fintech.network.Keys.URL;
+import static com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.Keys.JSP_URL;
 
 
-public class RetrofitManager {
-    private static final String TAG = RetrofitManager.class.getSimpleName();
+public class RetrofitManagerJSP {
+    private static final String TAG = RetrofitManagerJSP.class.getSimpleName();
 
-    private static RetrofitManager instance = null;
+    private static RetrofitManagerJSP instance = null;
 
     private Retrofit mRetrofit;
 
-    public static RetrofitManager getInstance() {
+    public static RetrofitManagerJSP getInstance() {
         if (instance == null) {
-            synchronized (RetrofitManager.class) {
+            synchronized (RetrofitManagerJSP.class) {
                 if (instance == null) {
-                    instance = new RetrofitManager();
+                    instance = new RetrofitManagerJSP();
                 }
             }
         }
@@ -89,7 +89,7 @@ public class RetrofitManager {
         }
 
         return new Retrofit.Builder()
-                .baseUrl(URL)
+                .baseUrl(JSP_URL)
                 .client(httpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -100,8 +100,8 @@ public class RetrofitManager {
         return mRetrofit;
     }
 
-    public static RetrofitInterface getRetrofitMethod() {
-        return getInstance().getRetrofit().create(RetrofitInterface.class);
+    public static RetrofitInterfaceJSP getRetrofitMethod() {
+        return getInstance().getRetrofit().create(RetrofitInterfaceJSP.class);
     }
 
     public static String catchAllThrowable(final Context context, final Throwable throwable) {

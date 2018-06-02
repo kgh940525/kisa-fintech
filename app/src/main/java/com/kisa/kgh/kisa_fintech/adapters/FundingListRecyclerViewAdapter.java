@@ -1,6 +1,7 @@
 package com.kisa.kgh.kisa_fintech.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +13,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kisa.kgh.kisa_fintech.R;
+import com.kisa.kgh.kisa_fintech.funding_detail.FundingDetailActivity;
 import com.kisa.kgh.kisa_fintech.network.module.NoteResponseModule;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.CATEGORY;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.CONTENT;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.CURRENT_MONEY;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.FARMER_NAME;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.GOAL;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.MAIN_CONTENT;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.PERCENTAGE;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.REMIND_DAY;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.SCHEDULE;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.TITLE;
 
 public class FundingListRecyclerViewAdapter extends RecyclerView.Adapter<FundingListRecyclerViewAdapter.FundingListRecyclerViewHolder> {
 
@@ -54,6 +67,21 @@ public class FundingListRecyclerViewAdapter extends RecyclerView.Adapter<Funding
         holder.txtRemindDay.setText(items.get(position).getDate() + " 까지");
         holder.txtCategory.setText(items.get(position).getCategory());
         holder.seekBar.setProgress(percentage);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent it = new Intent(context.getApplicationContext(), FundingDetailActivity.class);
+            it.putExtra(TITLE, items.get(position).getTitle());
+            it.putExtra(FARMER_NAME, items.get(position).getFarmerName());
+            it.putExtra(PERCENTAGE, percentage + "%");
+            it.putExtra(CURRENT_MONEY, items.get(position).getCurrentPrice());
+            it.putExtra(REMIND_DAY, items.get(position).getDate());
+            it.putExtra(CATEGORY, items.get(position).getCategory());
+            it.putExtra(GOAL, items.get(position).getGoal());
+            it.putExtra(CONTENT, items.get(position).getContent());
+            it.putExtra(MAIN_CONTENT, items.get(position).getMainContent());
+            it.putExtra(SCHEDULE, items.get(position).getSchedule());
+            context.startActivity(it);
+        });
     }
 
     private int changePercentage(String current, String goal) {
@@ -62,7 +90,7 @@ public class FundingListRecyclerViewAdapter extends RecyclerView.Adapter<Funding
 
         int re = cu * 100 / go;
 
-        return  re;
+        return re;
     }
 
     private int changeInt(String money) {

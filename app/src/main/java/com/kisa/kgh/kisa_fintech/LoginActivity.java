@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.kisa.kgh.kisa_fintech.network.RetrofitManager;
 import com.kisa.kgh.kisa_fintech.network.module.ResponseModule;
+import com.kisa.kgh.kisa_fintech.utils.LoginInstance;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.e("Code",code+"");
                         if (code.equals("2100")) {
+                            LoginInstance.getInstance().setId(Email.getText().toString().trim());
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             isLogin = true;
                         } else {

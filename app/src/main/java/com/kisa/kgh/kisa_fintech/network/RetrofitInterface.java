@@ -19,6 +19,7 @@ public interface RetrofitInterface {
     Observable<ResponseModule> signInCheck(@Body ResponseModule data);
 
 
+
     @POST(SIGN_UP)
     Observable<ResponseModule> signUp(@Body ResponseModule data);
 
