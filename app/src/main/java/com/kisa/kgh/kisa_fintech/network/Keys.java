@@ -10,4 +10,6 @@ public class Keys {
     public static final String SIGN_IN = "CheckLogin";
 
     public static final String GET_NODE = "GetNote";
+
+    public static final String SEND_TRANSACTION = "SendTransaction";
 }

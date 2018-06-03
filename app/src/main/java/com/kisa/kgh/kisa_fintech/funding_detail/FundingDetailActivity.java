@@ -34,6 +34,18 @@ public class FundingDetailActivity extends AppCompatActivity {
     private FundingDetailRecyclerViewAdapter adapter;
     private Button btnNext;
 
+    private String title;
+    private String farmerName;
+    private String percentage;
+    private String currentMoney;
+    private String day;
+    private String category;
+    private String goal;
+    private String content;
+    private String mainContent;
+    private String schedule;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,23 +60,23 @@ public class FundingDetailActivity extends AppCompatActivity {
 
     private void addData() {
         Intent it = getIntent();
-        String title = it.getExtras().getString(TITLE);
-        String farmerName = it.getExtras().getString(FARMER_NAME);
-        String percentage = it.getExtras().getString(PERCENTAGE);
-        String currentMoney = it.getExtras().getString(CURRENT_MONEY);
-        String day = it.getExtras().getString(REMIND_DAY);
-        String category = it.getExtras().getString(CATEGORY);
-        String goal = it.getExtras().getString(GOAL);
-        String content = it.getExtras().getString(CONTENT);
-        String mainContent = it.getExtras().getString(MAIN_CONTENT);
-        String schedule = it.getExtras().getString(SCHEDULE);
+        title = it.getExtras().getString(TITLE);
+        farmerName = it.getExtras().getString(FARMER_NAME);
+        percentage = it.getExtras().getString(PERCENTAGE);
+        currentMoney = it.getExtras().getString(CURRENT_MONEY);
+        day = it.getExtras().getString(REMIND_DAY);
+        category = it.getExtras().getString(CATEGORY);
+        goal = it.getExtras().getString(GOAL);
+        content = it.getExtras().getString(CONTENT);
+        mainContent = it.getExtras().getString(MAIN_CONTENT);
+        schedule = it.getExtras().getString(SCHEDULE);
 
         String people = (int) ((Math.random() * 10) + 1) + "명";
 
         adapter.setItem(new FundingDetailModel(1, "http://124.80.127.237:10081/image/image.png"));
         adapter.setItem(new FundingDetailModel(2, title, category, content, day, percentage, currentMoney, people, goal, day, day));
 
-        adapter.setItem(new FundingDetailModel(3,"상품스토리텔링",mainContent, "http://124.80.127.237:10081/image/image.png", schedule));
+        adapter.setItem(new FundingDetailModel(3, "상품스토리텔링", mainContent, "http://124.80.127.237:10081/image/image.png", schedule));
 
     }
 
@@ -78,6 +90,14 @@ public class FundingDetailActivity extends AppCompatActivity {
         rcvFundingDetail.setAdapter(adapter);
 
         btnNext = findViewById(R.id.btn_content_detail_next);
-        btnNext.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), PaymentGuideActivity.class)));
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), PaymentGuideActivity.class);
+                it.putExtra(TITLE, title);
+                it.putExtra(CURRENT_MONEY, currentMoney);
+                startActivity(it);
+            }
+        });
     }
 }

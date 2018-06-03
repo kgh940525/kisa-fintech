@@ -13,4 +13,5 @@ public class IntentKey {
     public static final String CONTENT = "content";
     public static final String MAIN_CONTENT = "mainContent";
     public static final String SCHEDULE = "schedule";
+    public static final String PAYMENT = "payment";
 }

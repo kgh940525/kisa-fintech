@@ -2,6 +2,7 @@ package com.kisa.kgh.kisa_fintech.network;
 
 import com.kisa.kgh.kisa_fintech.network.module.NoteModule;
 import com.kisa.kgh.kisa_fintech.network.module.ResponseModule;
+import com.kisa.kgh.kisa_fintech.network.module.TransactionModule;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -9,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 import static com.kisa.kgh.kisa_fintech.network.Keys.GET_NODE;
+import static com.kisa.kgh.kisa_fintech.network.Keys.SEND_TRANSACTION;
 import static com.kisa.kgh.kisa_fintech.network.Keys.SIGN_IN;
 import static com.kisa.kgh.kisa_fintech.network.Keys.SIGN_UP;
 
@@ -25,4 +27,7 @@ public interface RetrofitInterface {
 
     @POST(GET_NODE)
     Observable<NoteModule> getList();
+
+    @POST(SEND_TRANSACTION)
+    Observable<ResponseModule> sendTransaction(@Body TransactionModule data);
 }

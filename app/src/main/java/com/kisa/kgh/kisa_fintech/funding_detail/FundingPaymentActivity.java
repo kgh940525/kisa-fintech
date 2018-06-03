@@ -1,5 +1,6 @@
 package com.kisa.kgh.kisa_fintech.funding_detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,14 +12,16 @@ import com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.model.JSPHeader;
 import com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.model.JSPModel;
 import com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.model.JSPResponseModel;
 import com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.model.JSPTest;
+import com.kisa.kgh.kisa_fintech.network.RetrofitManager;
+import com.kisa.kgh.kisa_fintech.network.module.ResponseModule;
+import com.kisa.kgh.kisa_fintech.network.module.TransactionModule;
+import com.kisa.kgh.kisa_fintech.utils.LoginInstance;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +30,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.kisa.kgh.kisa_fintech.funding_detail.jsp_network.RetrofitManagerJSP.catchAllThrowable;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.CURRENT_MONEY;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.PAYMENT;
+import static com.kisa.kgh.kisa_fintech.utils.IntentKey.TITLE;
 
 public class FundingPaymentActivity extends BaseGuideActivity {
 
@@ -34,11 +40,20 @@ public class FundingPaymentActivity extends BaseGuideActivity {
 
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+    private String title;
+    private String currentMoney;
+    private String payment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         activityList.add(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funding_payment);
+
+        Intent it = getIntent();
+        title = it.getExtras().getString(TITLE);
+        currentMoney = it.getExtras().getString(CURRENT_MONEY);
+        payment = String.valueOf(it.getExtras().getInt(PAYMENT));
 
         btn = findViewById(R.id.btn_payment);
 
@@ -53,9 +68,9 @@ public class FundingPaymentActivity extends BaseGuideActivity {
 
         JSPTest jspTest = new JSPTest(json);
 
-        Log.e("test",json);
+        Log.e("test", json);
 
-        RetrofitManagerJSP.getRetrofitMethod().withdraw("sender","001", jspTest)
+        RetrofitManagerJSP.getRetrofitMethod().withdraw("application/x-www-form-urlencoded","send", "001", jspTest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSPResponseModel>() {
@@ -72,9 +87,9 @@ public class FundingPaymentActivity extends BaseGuideActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("error", e.toString());
-                        Log.e("error",e.getMessage());
+                        Log.e("error", e.getMessage());
 
-                        Toast.makeText(getApplicationContext(), catchAllThrowable(getApplicationContext(), e),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), catchAllThrowable(getApplicationContext(), e), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -82,9 +97,49 @@ public class FundingPaymentActivity extends BaseGuideActivity {
 
                     }
                 });
+
+        String s = "";
+        for (int i = 0; i < currentMoney.length(); i++) {
+            char c = currentMoney.charAt(i);
+            if (c >= '0' && c <= '9') {
+                s += c;
+            }
+        }
+
+        TransactionModule transactionModule = new TransactionModule(LoginInstance.getInstance().getId(), title, s, payment + "");
+
+        RetrofitManager.getRetrofitMethod().sendTransaction(transactionModule)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseModule>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseModule responseModule) {
+                        if(responseModule.getCode().equals("3333")) {
+                            Toast.makeText(getApplicationContext(),"구매 예약 성공",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        for(int i=0;i<activityList.size();i++){
+                            activityList.get(i).finish();
+                        }
+                    }
+                });
     }
 
-    private String makeJson()  {
+    private String makeJson() {
         String json = "";
         try {
             JSONObject jsonObject = new JSONObject();
